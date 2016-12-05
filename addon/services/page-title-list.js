@@ -6,6 +6,8 @@ const { set, copy } = Ember;
 export default Ember.Service.extend({
 
   init() {
+    document.querySelector('title').remove();
+
     this._super();
     set(this, 'tokens', Ember.A());
     set(this, 'length', 0);
