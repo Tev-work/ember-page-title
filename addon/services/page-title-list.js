@@ -6,8 +6,6 @@ const { set, copy } = Ember;
 export default Ember.Service.extend({
 
   init() {
-    document.querySelector('title').remove();
-
     this._super();
     set(this, 'tokens', Ember.A());
     set(this, 'length', 0);
@@ -152,6 +150,14 @@ export default Ember.Service.extend({
   }),
 
   toString() {
+    if (!get(this, 'staticTitleRemoved')) {
+      let titles = document.querySelectorAll('title');
+      for (let i = 0, len = titles.length - 1; i < len; i++) {
+        titles[i].remove();
+      }
+      set(this, 'staticTitleRemoved', true)      
+    }
+    
     let tokens = get(this, 'sortedTokens');
     let title = [];
     for (let i = 0, len = tokens.length; i < len; i++) {
